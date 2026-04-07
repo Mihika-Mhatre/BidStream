@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BidStream Live Auction Room</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="auction-shell">
+        <header class="topbar">
+            <div class="brand">
+                <span class="logo">BidStream</span>
+                <span class="status-pill live">Live</span>
+            </div>
+            <div class="account-panel">
+                <div class="balance">Balance: <strong>$0.00</strong></div>
+                <button id="loginBtn" class="action gold">Login</button>
+            </div>
+        </header>
+
+        <section class="auction-room">
+            <article class="auction-card">
+                <div class="auction-header">
+                    <h1>Fintech Vintage Watch</h1>
+                    <span class="auction-tag">Closing in <strong id="countdown">02:15</strong></span>
+                </div>
+                <p class="auction-description">High-value collectible auction with real-time bidding and final-second updates.</p>
+                <div class="price-row">
+                    <div>
+                        <span class="label">Current Bid</span>
+                        <div class="current-price">$<span id="currentPrice">2,150</span></div>
+                    </div>
+                    <button id="placeBidBtn" class="action gold">Place Bid</button>
+                </div>
+                <div id="toast" class="toast hidden"></div>
+            </article>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
