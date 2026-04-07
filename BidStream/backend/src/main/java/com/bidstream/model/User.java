@@ -1,9 +1,12 @@
 package com.bidstream.model;
 
-import java.math.BigDecimal;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "users")
 public class User {
@@ -17,83 +20,34 @@ public class User {
     @Indexed(unique = true)
     private String email;
 
-    private String passwordHash;
-    private BigDecimal balance;
-    private boolean active;
+    private String password;
 
-    public User() {
-        this.balance = BigDecimal.ZERO;
-        this.active = true;
-    }
+    private List<String> roles = new ArrayList<>(List.of("ROLE_USER"));
 
-    public User(String username, String email, String passwordHash, BigDecimal balance) {
-        this.username = username;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.balance = balance;
-        this.active = true;
-    }
+    private BigDecimal balance = BigDecimal.ZERO;
 
-    public String getId() {
-        return id;
-    }
+    private String profileImageUrl;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public User() {}
 
-    public String getUsername() {
-        return username;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
+    public List<String> getRoles() { return roles; }
+    public void setRoles(List<String> roles) { this.roles = roles; }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
+    public BigDecimal getBalance() { return balance; }
+    public void setBalance(BigDecimal balance) { this.balance = balance; }
 
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean hasSufficientFunds(BigDecimal amount) {
-        return balance != null && balance.compareTo(amount) >= 0;
-    }
-
-    public void debitBalance(BigDecimal amount) {
-        if (!hasSufficientFunds(amount)) {
-            throw new IllegalArgumentException("Insufficient balance");
-        }
-        this.balance = this.balance.subtract(amount);
-    }
-
-    public void creditBalance(BigDecimal amount) {
-        this.balance = this.balance.add(amount);
-    }
+    public String getProfileImageUrl() { return profileImageUrl; }
+    public void setProfileImageUrl(String profileImageUrl) { this.profileImageUrl = profileImageUrl; }
 }

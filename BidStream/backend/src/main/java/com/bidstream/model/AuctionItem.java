@@ -1,12 +1,13 @@
 package com.bidstream.model;
 
-import java.math.BigDecimal;
-import java.time.Instant;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "auctionItems")
+import java.math.BigDecimal;
+import java.time.Instant;
+
+@Document(collection = "auction_items")
 public class AuctionItem {
 
     @Id
@@ -14,90 +15,61 @@ public class AuctionItem {
 
     private String title;
     private String description;
+    private String imageUrl;
+
     private BigDecimal startingPrice;
-    private BigDecimal currentPrice;
-    private String currentWinnerId;
+    private BigDecimal currentHighestBid;
+
+    private String currentHighestBidderId;
+    private String status;
+
+    private String createdByUserId;
+
+    private Instant createdAt = Instant.now();
     private Instant endsAt;
-    private boolean live;
+    private Instant lastBidAt;
 
-    public AuctionItem() {
-        this.live = true;
-    }
+    @Version
+    private Long version;
 
-    public AuctionItem(String title, String description, BigDecimal startingPrice, Instant endsAt) {
-        this.title = title;
-        this.description = description;
-        this.startingPrice = startingPrice;
-        this.currentPrice = startingPrice;
-        this.endsAt = endsAt;
-        this.live = true;
-    }
+    public AuctionItem() {}
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public String getDescription() {
-        return description;
-    }
+    public BigDecimal getStartingPrice() { return startingPrice; }
+    public void setStartingPrice(BigDecimal startingPrice) { this.startingPrice = startingPrice; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public BigDecimal getCurrentHighestBid() { return currentHighestBid; }
+    public void setCurrentHighestBid(BigDecimal currentHighestBid) { this.currentHighestBid = currentHighestBid; }
 
-    public BigDecimal getStartingPrice() {
-        return startingPrice;
-    }
+    public String getCurrentHighestBidderId() { return currentHighestBidderId; }
+    public void setCurrentHighestBidderId(String currentHighestBidderId) { this.currentHighestBidderId = currentHighestBidderId; }
 
-    public void setStartingPrice(BigDecimal startingPrice) {
-        this.startingPrice = startingPrice;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public BigDecimal getCurrentPrice() {
-        return currentPrice;
-    }
+    public String getCreatedByUserId() { return createdByUserId; }
+    public void setCreatedByUserId(String createdByUserId) { this.createdByUserId = createdByUserId; }
 
-    public void setCurrentPrice(BigDecimal currentPrice) {
-        this.currentPrice = currentPrice;
-    }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 
-    public String getCurrentWinnerId() {
-        return currentWinnerId;
-    }
+    public Instant getEndsAt() { return endsAt; }
+    public void setEndsAt(Instant endsAt) { this.endsAt = endsAt; }
 
-    public void setCurrentWinnerId(String currentWinnerId) {
-        this.currentWinnerId = currentWinnerId;
-    }
+    public Instant getLastBidAt() { return lastBidAt; }
+    public void setLastBidAt(Instant lastBidAt) { this.lastBidAt = lastBidAt; }
 
-    public Instant getEndsAt() {
-        return endsAt;
-    }
-
-    public void setEndsAt(Instant endsAt) {
-        this.endsAt = endsAt;
-    }
-
-    public boolean isLive() {
-        return live;
-    }
-
-    public void setLive(boolean live) {
-        this.live = live;
-    }
-
-    public boolean isClosed() {
-        return endsAt != null && Instant.now().isAfter(endsAt);
-    }
+    public Long getVersion() { return version; }
+    public void setVersion(Long version) { this.version = version; }
 }
